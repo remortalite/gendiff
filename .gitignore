@@ -1,0 +1,10 @@
+# dir
+
+dist/
+.venv/
+__pycache__/
+
+# files
+
+.sw[pao]
+.pyc
