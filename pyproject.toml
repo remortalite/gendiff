@@ -9,6 +9,8 @@ repository = "https://github.com/remortalite/python-project-50"
 
 [tool.poetry.dependencies]
 python = "^3.11"
+flake8 = "^7.0.0"
+pytest = "^8.2.1"
 
 [tool.poetry.scripts]
 gendiff = "gendiff.scripts.gendiff:main"

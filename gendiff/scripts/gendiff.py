@@ -11,11 +11,11 @@ def generate_diff(file_path1, file_path2):
     result = make_and_format_diff(file1_data, file2_data)
 
     return stringify(result)
-    
+
 
 def main():
     args = parse_args()
-    
+
     result = generate_diff(args.first_file, args.second_file)
 
     print(result)
