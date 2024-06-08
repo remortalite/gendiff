@@ -1,0 +1,37 @@
+[
+{"name": "one", "state": "changed", "nested": false, "value": [1, 1]},
+{"name": "two", "state": "changed", "nested": false, "value": [2, 3]},
+{"name": "nested", "state": "notchanged", "nested": true, 
+	"value": [{
+		"name": "three",
+		"state": "changed",
+		"nested": false,
+		"value": [3, 5]
+	}]
+},
+{"name": "four", "state": "removed", "nested": false, "value": 4},
+{"name": "seven", "state": "added", "nested": false, "value": 7},
+{"name": "five", "state": "notchanged", "nested": true,  
+	"value": [
+		{
+		"name": "nested",
+		"state": "removed",
+		"nested": false, 
+		"value": 5
+		},
+		{
+		"name": "six",
+		"state": "added",
+		"nested": true,
+		"value": [
+			{
+				"name": "nested",
+				"state": "notchanged",
+				"nested": false,
+				"value": 5
+			}
+		]
+		}
+	]
+}
+]
