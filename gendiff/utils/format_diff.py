@@ -41,6 +41,6 @@ def format_diff(data):
 def sort_diff(data_dict):
     def _sort_func(key):
         sort_key_1 = 0 if key.startswith(PREFIX_REMOVED) else 1
-        return sort_key_1, key[len(PREFIX_REMOVED) + 1:]
+        return key[len(PREFIX_REMOVED) + 1:], sort_key_1
     return dict(sorted(data_dict.items(),
                 key=lambda x: _sort_func(x[0])))
