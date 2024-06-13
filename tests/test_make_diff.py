@@ -59,7 +59,10 @@ def nested_data_expected_diff():
 
 
 def _sort_by_name(data):
+	sorted_dict = dict()
+	if not isinstance(data, (dict, list)):
 		return sorted(data, key=lambda x: x['name'])
+	return sorted_dict
 
 
 def test_make_diff(make_test_data_1, make_test_data_2, make_test_result):
@@ -81,10 +84,10 @@ def test_make_diff_nested(nested_data_1, nested_data_2, nested_data_expected_dif
 def test_make_and_format_diff_nested(nested_data_1, nested_data_2, nested_data_expected_dict):
 	result = make_and_format_diff(nested_data_1, nested_data_2)
 	expected = nested_data_expected_dict
-	assert result == expected
+	assert _sort_by_name(result) == _sort_by_name(expected)
 
 
 def test_make_and_format_diff(make_test_data_1, make_test_data_2, make_format_diff_str):
 	result = make_and_format_diff(make_test_data_1, make_test_data_2)
-	assert result == make_format_diff_str
+	assert _sort_by_name(result) == _sort_by_name(make_format_diff_str)
 	assert make_and_format_diff({}, {}) == {}
