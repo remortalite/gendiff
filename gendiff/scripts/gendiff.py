@@ -1,14 +1,15 @@
 from gendiff.utils.parse_file import parse_file
 from gendiff.utils.cli import parse_args
 from gendiff.utils.stylish import stylish
-from gendiff.utils.make_diff import make_and_format_diff
+from gendiff.utils.make_diff import make_diff, format_diff
 
 
 def generate_diff(file_path1, file_path2, formatter=stylish):
     file1_data = parse_file(file_path1)
     file2_data = parse_file(file_path2)
 
-    result = make_and_format_diff(file1_data, file2_data)
+    result = format_diff(make_diff(file1_data, file2_data))
+    # result = make_and_format_diff(file1_data, file2_data)
 
     return formatter(result)
 
