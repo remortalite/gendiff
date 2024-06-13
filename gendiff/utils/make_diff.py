@@ -11,7 +11,6 @@ def make_diff(data1, data2):
 
     result_data = []
 
-    common_keys = set(data1) & set(data2)
     added_keys = set(data2) - set(data1)
 
     all_keys = set(data1) | set(data2)
@@ -23,27 +22,32 @@ def make_diff(data1, data2):
             nested_keys.add(key)
 
     for key in all_keys - nested_keys:
-        if key in set(data1) ^ set(data2):
-            status = value = None
-            if key in added_keys:
-                status = "added"
-                value = data2[key]
-            else:
-                status = "removed"
-                value = data1[key]
-            new_data = _prepare_data_item(key, status, value)
+        data_by_status = {
+            "added": data2.get(key, None),
+            "removed": data1.get(key, None),
+            "notchanged": data1.get(key, None),
+            "changed": [data1.get(key, None), data2.get(key, None)]}
 
+        current_status = None
+        if key in set(data1) ^ set(data2):
+            current_status = "added" if key in added_keys else "removed"
         else:
-            if data1[key] == data2[key]:
-                new_data = _prepare_data_item(key, "notchanged", data1[key])
-            else:
-                new_data = _prepare_data_item(key, "changed", [data1[key], data2[key]])
+            current_status = ("notchanged"
+                              if (data1[key] == data2[key])
+                              else "changed")
+
+        new_data = _prepare_data_item(key,
+                                      current_status,
+                                      data_by_status[current_status])
 
         result_data.append(new_data)
 
     for key in nested_keys:
         new_data = make_diff(data1[key], data2[key])
-        result_data.append(_prepare_data_item(key, "nested", new_data, is_nested=True))
+        result_data.append(_prepare_data_item(key,
+                                              "nested",
+                                              new_data,
+                                              is_nested=True))
 
     return result_data
 
