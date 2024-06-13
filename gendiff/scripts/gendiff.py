@@ -4,16 +4,17 @@ from gendiff.utils.stylish import stylish, stylish_plain
 from gendiff.utils.make_diff import make_diff, format_diff
 
 
-def generate_diff(file_path1, file_path2, format="json", formatter=None):
+def generate_diff(file_path1, file_path2, output_type="json", formatter=None):
     file1_data = parse_file(file_path1)
     file2_data = parse_file(file_path2)
 
     if not formatter:
-        if format == "json":
+        if output_type == "json":
             formatter = stylish
-        formatter = stylish_plain
+        else:
+            formatter = stylish_plain
 
-    result = format_diff(make_diff(file1_data, file2_data), type=format)
+    result = format_diff(make_diff(file1_data, file2_data), type=output_type)
     if formatter:
         result = formatter(result)
 
@@ -25,7 +26,7 @@ def main():
 
     result = generate_diff(args.first_file,
                            args.second_file,
-                           format=args.format)
+                           output_type=args.format)
 
     print(result)
 
