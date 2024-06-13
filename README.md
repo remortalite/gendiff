@@ -7,4 +7,4 @@
 
 # Example:
 
-[![asciicast](https://asciinema.org/a/TesLg0WYs39eQmoMjKQEe4LKd.svg)](https://asciinema.org/a/TesLg0WYs39eQmoMjKQEe4LKd)
+[![asciicast](https://asciinema.org/a/VqUBwDVgdD3umGZYx0qYxiPBa.svg)](https://asciinema.org/a/VqUBwDVgdD3umGZYx0qYxiPBa)
