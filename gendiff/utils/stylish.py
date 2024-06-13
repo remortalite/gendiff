@@ -19,3 +19,12 @@ def stylish(data, indent_symbol=" ", indent_size=4):
         return string
 
     return f"{{\n{iter_(data)}}}"
+
+
+def stylish_plain(data):
+    if not data:
+        return
+    result_str = ""
+    for el in data:
+        result_str += f"{el}\n"
+    return result_str
