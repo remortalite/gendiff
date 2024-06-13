@@ -12,29 +12,32 @@ def format_diff(data):
 
     for item in data:
         state_value = item["state"]
-        prefix = PREFIX_NONE
 
-        if state_value == "added":
-            prefix = PREFIX_ADDED
-        elif state_value == "removed":
-            prefix = PREFIX_REMOVED
+        match state_value:
 
-        elif state_value == "changed":
-            value = item["value"]
-            if value[0] == value[1]:
-                item_name = get_item_name(item["name"])
-                result[item_name] = value[0]
-            else:
+            case "added":
+                item_name = get_item_name(item["name"], prefix=PREFIX_ADDED)
+                result[item_name] = item["value"]
+
+            case "removed":
                 item_name = get_item_name(item["name"], prefix=PREFIX_REMOVED)
-                result[item_name] = value[0]
+                result[item_name] = item["value"]
+
+            case "notchanged":
+                item_name = get_item_name(item["name"], prefix=PREFIX_NONE)
+                result[item_name] = item["value"]
+
+            case "changed":
+                item_name = get_item_name(item["name"], prefix=PREFIX_REMOVED)
+                result[item_name] = item["value"][0]
 
                 item_name = get_item_name(item["name"], prefix=PREFIX_ADDED)
-                result[item_name] = value[1]
-            continue
+                result[item_name] = item["value"][1]
 
-        item_name = get_item_name(item["name"], prefix=prefix)
+            case "nested":
+                item_name = get_item_name(item["name"], prefix=PREFIX_NONE)
+                result[item_name] = format_diff(item["children"])
 
-        result[item_name] = item["value"]
     return result
 
 
