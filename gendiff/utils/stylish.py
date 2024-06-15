@@ -7,19 +7,20 @@ def stylish(data, indent_symbol=" ", indent_size=4):
         if not isinstance(current_data, dict):
             return f"{current_data}"
 
-        string = ""
+        strings = []
 
         for el in chain(current_data):
-            string += f"{indent_symbol * indent_size * level}{el}: "
+            strings.append(f"{indent_symbol * indent_size * level}{el}: ")
             if isinstance(current_data[el], dict):
-                string += "{\n" + iter_(current_data[el], level + 1)
-                string += f"{indent_symbol * indent_size * level}}}\n"
+                strings[-1] += "{"
+                strings.append(iter_(current_data[el], level + 1))
+                strings.append(f"{indent_symbol * indent_size * level}")
+                strings[-1] += "}"
             else:
-                string += f"{current_data[el]}\n"
+                strings[-1] += f"{current_data[el]}"
+        return '\n'.join(strings)
 
-        return string
-
-    return f"{{\n{iter_(data)}}}"
+    return f"{{\n{iter_(data)}\n}}"
 
 
 def stylish_plain(data):
