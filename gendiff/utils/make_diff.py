@@ -1,4 +1,5 @@
-from gendiff.utils.format_diff import format_diff, sort_diff
+from gendiff.utils.format_diff import format_diff
+from gendiff.utils.formatters import sort_diff
 
 
 def _prepare_data_item(name, state, value, is_nested=False):
@@ -16,38 +17,40 @@ def make_diff(data1, data2):
     all_keys = set(data1) | set(data2)
 
     nested_keys = set()
-    # check if nested
+
     for key in all_keys:
-        if all(isinstance(x.get(key), dict) for x in (data1, data2)):
-            nested_keys.add(key)
+        # check if nested
+        if key in all_keys:
+            if all(isinstance(x.get(key), dict) for x in (data1, data2)):
+                nested_keys.add(key)
 
-    for key in all_keys - nested_keys:
-        data_by_status = {
-            "added": data2.get(key, None),
-            "removed": data1.get(key, None),
-            "notchanged": data1.get(key, None),
-            "changed": [data1.get(key, None), data2.get(key, None)]}
+        if key in all_keys - nested_keys:
+            data_by_status = {
+                "added": data2.get(key, None),
+                "removed": data1.get(key, None),
+                "notchanged": data1.get(key, None),
+                "changed": [data1.get(key, None), data2.get(key, None)]}
 
-        current_status = None
-        if key in set(data1) ^ set(data2):
-            current_status = "added" if key in added_keys else "removed"
-        else:
-            current_status = ("notchanged"
-                              if (data1[key] == data2[key])
-                              else "changed")
+            current_status = None
+            if key in set(data1) ^ set(data2):
+                current_status = "added" if key in added_keys else "removed"
+            else:
+                current_status = ("notchanged"
+                                  if (data1[key] == data2[key])
+                                  else "changed")
 
-        new_data = _prepare_data_item(key,
-                                      current_status,
-                                      data_by_status[current_status])
+            new_data = _prepare_data_item(key,
+                                          current_status,
+                                          data_by_status[current_status])
 
-        result_data.append(new_data)
+            result_data.append(new_data)
 
-    for key in nested_keys:
-        new_data = make_diff(data1[key], data2[key])
-        result_data.append(_prepare_data_item(key,
-                                              "nested",
-                                              new_data,
-                                              is_nested=True))
+        if key in nested_keys:
+            new_data = make_diff(data1[key], data2[key])
+            result_data.append(_prepare_data_item(key,
+                                                  "nested",
+                                                  new_data,
+                                                  is_nested=True))
 
     return result_data
 

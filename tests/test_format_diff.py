@@ -1,4 +1,5 @@
 from gendiff.utils.format_diff import *
+from gendiff.utils.formatters import *
 
 import json
 import pytest
