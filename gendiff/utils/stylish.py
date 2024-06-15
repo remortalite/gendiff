@@ -1,4 +1,5 @@
 from itertools import chain
+import json
 
 
 def stylish(data, indent_symbol=" ", indent_size=4):
@@ -28,3 +29,7 @@ def stylish_plain(data):
     for el in data:
         result_str += f"{el}\n"
     return result_str
+
+
+def json_formatter(data):
+    return json.dumps(data)
