@@ -17,7 +17,9 @@ def _format_stylish(data, indent_symbol=" ", indent_size=4):
         strings = []
 
         for el in chain(current_data):
-            strings.append(f"{indent_symbol * indent_size * level}{el}: ")
+            strings.append(f"{indent_symbol * indent_size * level}"\
+                            "{el.strip()}: ")
+            print(f"{strings=}")
             if isinstance(current_data[el], dict):
                 strings[-1] += "{"
                 strings.append(iter_(current_data[el], level + 1))
@@ -28,6 +30,7 @@ def _format_stylish(data, indent_symbol=" ", indent_size=4):
                     strings[-1] += f"{CENSORED_JSON_DICT[current_data[el]]}"
                 else:
                     strings[-1] += f"{current_data[el]}"
+        # print(f"{strings=}")
         return '\n'.join(strings) if data else data
     return f"{{\n{iter_(data)}\n}}" if data else data
 
