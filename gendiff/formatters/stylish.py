@@ -1,8 +1,9 @@
+from .utils.make_json_diff import make_json_diff
+
 from itertools import chain
-import json
 
 
-def stylish(data, indent_symbol=" ", indent_size=4):
+def _format_stylish(data, indent_symbol=" ", indent_size=4):
     def iter_(current_data, level=1):
         if not isinstance(current_data, dict):
             return f"{current_data}"
@@ -18,19 +19,11 @@ def stylish(data, indent_symbol=" ", indent_size=4):
                 strings[-1] += "}"
             else:
                 strings[-1] += f"{current_data[el]}"
-        return '\n'.join(strings)
-
-    return f"{{\n{iter_(data)}\n}}"
-
-
-def stylish_plain(data):
-    if not data:
-        return
-    result_str = ""
-    for el in data:
-        result_str += f"{el}\n"
-    return result_str
+        return '\n'.join(strings) if data else data
+    return f"{{\n{iter_(data)}\n}}" if data else data
 
 
-def json_formatter(data):
-    return json.dumps(data)
+def format(data, raw=False):
+    prepared_data = make_json_diff(data)
+
+    return prepared_data if raw else _format_stylish(prepared_data)

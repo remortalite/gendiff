@@ -1,23 +1,26 @@
 from gendiff.utils.parse_file import parse_file
-from gendiff.utils.stylish import stylish, stylish_plain, json_formatter
-from gendiff.utils.make_diff import make_diff, format_diff
+from gendiff.formatters import (stylish_formatter,
+                                plain_formatter,
+                                json_formatter)
+from gendiff.utils.make_diff import make_diff
 
 
-def generate_diff(file_path1, file_path2, output_type=None, formatter=stylish):
+def generate_diff(file_path1,
+                  file_path2,
+                  output_type=None,
+                  formatter=None):
     file1_data = parse_file(file_path1)
     file2_data = parse_file(file_path2)
 
-    match output_type:
-        case "json":
-            formatter = json_formatter
-        case "plain":
-            formatter = stylish_plain
-        case _:
-            formatter = stylish
-            output_type = "json"
+    if not formatter:
+        match output_type:
+            case "json":
+                formatter = json_formatter
+            case "plain":
+                formatter = plain_formatter
+            case _:
+                formatter = stylish_formatter
 
-    result = format_diff(make_diff(file1_data, file2_data), type=output_type)
-    if formatter:
-        result = formatter(result)
+    result = formatter(make_diff(file1_data, file2_data))
 
     return result
