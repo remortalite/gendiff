@@ -1,5 +1,4 @@
-from gendiff.formatters import stylish_formatter, plain_formatter, json_formatter
-from gendiff.formatters.utils.make_json_diff import make_json_diff
+from gendiff.formatters import stylish_formatter, plain_formatter
 
 import json
 import pytest
@@ -43,17 +42,12 @@ def test_format_diff():
 def test_format_diff_plain():
     data = [{'name': 'one', 'state': 'added', 'value': 1},
             {'name': 'qwerty', 'state': 'removed', 'value': 2},
-            {'name': 'nest', 'state': 'nested',
-                             'children': [
-                                {"name": "three",
-                                 "state": "added",
-                                 "value": 1},
-                                {"name": "abra",
-                                 "state": "added",
-                                 "value": {
-                                    "three": "solo"
-                                 }}
-                             ]},
+            {'name': 'nest',
+             'state': 'nested',
+             'children': [{"name": "three", "state": "added", "value": 1},
+                          {"name": "abra",
+                           "state": "added",
+                           "value": {"three": "solo"}}]},
             {'name': 'two', 'state': 'removed', 'value': 2},
             {'name': 'three', 'state': 'changed', 'value': [3, 4]}]
 
