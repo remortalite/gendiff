@@ -7,10 +7,19 @@ def _get_name(name, path):
     return f"{path}.{name}"
 
 
+JSON_WORDS = {
+    True: "true",
+    False: "false",
+    None: "null"
+}
+
+
 def _replace_complex_with_text(value):
     if isinstance(value, (dict, list)):
         return "[complex value]"
-    return json.dumps(value)
+    if isinstance(value, bool) or value is None:
+        return JSON_WORDS[value]
+    return value
 
 
 def _format_diff(data, *, path=''):
@@ -18,11 +27,11 @@ def _format_diff(data, *, path=''):
 
     templates_dict = {
         "added":
-            "Property '{name}' was added with value: {value}",
+            "Property '{name}' was added with value: {value!r}",
         "removed":
             "Property '{name}' was removed",
         "updated":
-            "Property '{name}' was updated. From {old_value} to {new_value}"
+            "Property '{name}' was updated. From {old_value!r} to {new_value!r}"
     }
 
     for item in data:
@@ -36,6 +45,7 @@ def _format_diff(data, *, path=''):
                 value = _replace_complex_with_text(item["value"])
                 item_string = templates_dict["added"].format(name=item_name,
                                                              value=value)
+                item_string = item_string.replace("'[complex value]'", "[complex value]")
                 result.append(item_string)
 
             case "removed":
@@ -44,6 +54,7 @@ def _format_diff(data, *, path=''):
                 temp = templates_dict["removed"]
                 item_string = temp.format(name=item_name,
                                           value=value)
+                item_string = item_string.replace("'[complex value]'", "[complex value]")
                 result.append(item_string)
 
             case "changed":
@@ -54,6 +65,7 @@ def _format_diff(data, *, path=''):
                 item_string = temp.format(name=item_name,
                                           old_value=old_value,
                                           new_value=new_value)
+                item_string = item_string.replace("'[complex value]'", "[complex value]")
                 result.append(item_string)
 
             case "nested":
