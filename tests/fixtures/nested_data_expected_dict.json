@@ -11,7 +11,7 @@
 "  five": {
 	"- nested": 5,
 	"+ six": {
-		"nested": 5
+		"  nested": 5
 	}
 }
 }
