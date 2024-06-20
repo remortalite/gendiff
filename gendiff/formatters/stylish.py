@@ -1,13 +1,6 @@
 from .utils.make_json_diff import make_json_diff
 
 
-JSON_WORDS = {
-    True: "true",
-    False: "false",
-    None: "null"
-}
-
-
 def is_dict(data):
     return isinstance(data, dict)
 

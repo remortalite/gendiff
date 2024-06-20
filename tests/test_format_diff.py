@@ -6,14 +6,14 @@ import pytest
 
 @pytest.fixture
 def test_sort_diff_data():
-    with open("tests/fixtures/test_sort_diff_data.json") as f:
+    with open("tests/fixtures/diff_sorting.json") as f:
         data = json.load(f)
     return data
 
 
 @pytest.fixture
 def test_sort_diff_data_sorted():
-    with open("tests/fixtures/test_sort_diff_data_sorted.json") as f:
+    with open("tests/fixtures/diff_sorting_result.json") as f:
         data = json.load(f)
     return data
 
