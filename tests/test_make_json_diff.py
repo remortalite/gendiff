@@ -3,6 +3,9 @@ from gendiff.formatters.utils.make_json_diff import (_get_item_name,
                                                      _sort_key,
                                                      make_json_diff)
 
+import json
+import pytest
+
 
 def test__get_item_name():
     assert _get_item_name("value", prefix="+") == "+ value"
@@ -26,8 +29,7 @@ def test__sort_key():
     data = {"name": "abc", "state": "removed"}
     assert _sort_key(data) == ("abc", 0)
 
-import json
-import pytest #TODO
+
 @pytest.fixture
 def file1_2_nested_diff():
     with open("tests/fixtures/file1_2_nested_diff.json") as f:
