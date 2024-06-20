@@ -1,6 +1,21 @@
 [
-{"name": "one", "state": "notchanged", "value": 1},
-{"name": "two", "state": "changed", "value": [2, 3]},
+{"name": "five", "state": "nested",
+	"children": [
+		{
+		"name": "nested",
+		"state": "removed",
+		"value": 5
+		},
+		{
+		"name": "six",
+		"state": "added",
+		"value": {
+			"nested": 5
+			}
+		}
+	]
+},
+{"name": "four", "state": "removed", "value": 4},
 {"name": "nested", "state": "nested",
 	"children": [{
 		"name": "three",
@@ -8,22 +23,7 @@
 		"value": [3, 5]
 	}]
 },
-{"name": "four", "state": "removed", "value": 4},
+{"name": "one", "state": "notchanged", "value": 1},
 {"name": "seven", "state": "added", "value": 7},
-{"name": "five", "state": "nested",
-	"children": [
-		{
-		"name": "six",
-		"state": "added",
-		"value": {
-			"nested": 5
-			}
-		},
-		{
-		"name": "nested",
-		"state": "removed",
-		"value": 5
-		}
-	]
-}
+{"name": "two", "state": "changed", "value": [2, 3]}
 ]
