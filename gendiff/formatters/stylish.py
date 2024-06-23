@@ -1,12 +1,8 @@
 from .utils.make_json_diff import make_json_diff
 
 
-def is_dict(data):
-    return isinstance(data, dict)
-
-
 def prepare_value(value):
-    if is_dict(value):
+    if isinstance(value, dict):
         return "{"
     elif isinstance(value, bool):
         return str(value).lower()
@@ -20,7 +16,7 @@ def _format_stylish(data, indent_symbol=" ", indent_size=4, shift_size=2):
     def iter_(current_data, level=1):
         indent_size_counted = level * indent_size - shift_size
 
-        if not is_dict(current_data):
+        if not isinstance(current_data, dict):
             return current_data
 
         # final list with lines of changes
@@ -35,7 +31,7 @@ def _format_stylish(data, indent_symbol=" ", indent_size=4, shift_size=2):
             result_str = f"{indent}{key}: {value}"
             result.append(result_str)
 
-            if not is_dict(current_data[key]):
+            if not isinstance(current_data[key], dict):
                 continue
 
             nested_result = iter_(current_data[key], level + 1)

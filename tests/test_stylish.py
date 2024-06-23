@@ -1,4 +1,4 @@
-from gendiff.formatters.stylish import is_dict, prepare_value, format
+from gendiff.formatters.stylish import prepare_value, format
 
 import pytest
 import json
@@ -23,12 +23,6 @@ def file1_2_nested_str():
     with open("tests/fixtures/file1_2_nested_str.txt") as f:
         data = f.read()
     return data
-
-
-def test_is_dict():
-    assert is_dict({})
-    assert is_dict({"a": "b"})
-    assert not is_dict([])
 
 
 def test_prepare_value():
