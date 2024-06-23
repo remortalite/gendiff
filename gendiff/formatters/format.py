@@ -1,6 +1,7 @@
 from gendiff.formatters import (json_formatter,
                                 plain_formatter,
                                 stylish_formatter)
+from .utils.make_json_diff import make_json_diff
 
 
 def format_data(data, output_type="json", formatter=None):
@@ -12,4 +13,6 @@ def format_data(data, output_type="json", formatter=None):
                 formatter = plain_formatter
             case _:
                 formatter = stylish_formatter
-    return formatter(data)
+    if output_type == "plain":
+        return formatter(data)
+    return formatter(make_json_diff(data))

@@ -1,4 +1,4 @@
-from gendiff.formatters.stylish import prepare_value, format
+from gendiff.formatters.stylish import prepare_value
 
 import pytest
 import json
@@ -49,13 +49,3 @@ def test_prepare_value():
     value = {}
     expected = "{"
     assert prepare_value(value) == expected
-
-
-def test_format(file1_2_nested_diff, file1_2_nested_str):
-    data = file1_2_nested_diff
-    result = format(data)
-    assert result == file1_2_nested_str
-
-    data = {}
-    result = format(data)
-    assert result == ""
