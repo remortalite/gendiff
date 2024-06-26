@@ -10,7 +10,7 @@ def transform_to_str(value):
     return f"'{value}'"
 
 
-def _iter_format(data, path=''):
+def iter_recursive(data, path=''):
     result = []
 
     templates_dict = {
@@ -54,17 +54,17 @@ def _iter_format(data, path=''):
                 result.append(item_string)
 
             case "nested":
-                result.extend(_iter_format(item["children"],
+                result.extend(iter_recursive(item["children"],
                                            path=item_name))
     result = sorted(result)
     return result
 
 
-def format(data, raw=False):
+def format(data):
     if not data:
         return data
 
-    result = _iter_format(data)
+    result = iter_recursive(data)
 
-    result_str = "\n".join(result)
-    return result if raw else result_str.strip()
+    result_str = "\n".join(result).strip()
+    return result_str

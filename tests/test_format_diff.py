@@ -1,4 +1,5 @@
 from gendiff.formatters import plain_formatter
+from gendiff.formatters.plain import iter_recursive
 
 import json
 import pytest
@@ -37,5 +38,5 @@ def test_format_diff_plain():
               "Property 'three' was updated. From 3 to 4",
               "Property 'two' was removed"]
 
-    assert plain_formatter(data, raw=True) == result
+    assert iter_recursive(data) == result
     assert plain_formatter({}) == {}
