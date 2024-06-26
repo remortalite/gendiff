@@ -13,14 +13,9 @@ def parse(data, format="json"):
 
 def get_content(filename):
 
-    ext = os.path.splitext(filename)[-1].replace(".", "")
-
-    if not filename or not os.path.isfile(filename):
-        raise ValueError(f"File '{filename}' does not exists!")
+    ext = os.path.splitext(filename)[-1][1:]
 
     with open(filename) as f:
-        content = f.read()
-
-    data = parse(content, ext)
+        data = parse(f.read(), ext)
 
     return data
