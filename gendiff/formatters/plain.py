@@ -55,7 +55,7 @@ def iter_recursive(data, path=''):
 
             case "nested":
                 result.extend(iter_recursive(item["children"],
-                                           path=item_name))
+                                             path=item_name))
     result = sorted(result)
     return result
 

@@ -1,6 +1,6 @@
-INDENT_SYMBOL=" "
-INDENT_SIZE=4
-SHIFT_SIZE=2
+INDENT_SYMBOL = " "
+INDENT_SIZE = 4
+SHIFT_SIZE = 2
 
 
 def prepare_value(value):
