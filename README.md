@@ -27,9 +27,12 @@ gendiff -h
 
 # Аргументы командной строки
 
-`filename{1,2}` -- пути до файлов
+`gendiff filepath1 filepath2 [-f json|plain|stylish]`
 
-`-f`/`--format` [json/plain/stylish] -- формат вывода различий
+Где: 
+* `filename{1,2}` -- пути до файлов
+
+* `-f`/`--format` [json/plain/stylish] -- формат вывода различий
 
 # Example:
 
