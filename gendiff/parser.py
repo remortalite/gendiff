@@ -8,9 +8,7 @@ def parse(data, format="json"):
         return json.loads(data)
     elif format in ("yml", "yaml"):
         return yaml.safe_load(data)
-    else:
-        raise ValueError("Wrong format!")
-    return None
+    raise ValueError("Wrong format! Needs: json/yaml file!")
 
 
 def get_content(filename):
