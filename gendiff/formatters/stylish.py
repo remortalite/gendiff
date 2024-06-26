@@ -7,12 +7,11 @@ def prepare_value(value, *, level=1):
     result = [""]
     if isinstance(value, dict):
 
-        nested_result = iter_(value,
-                              level+1)
+        nested_result = iter_(value, level + 1)
         if nested_result:
             result[-1] += "{"
             result.extend(nested_result)
-            result.append(f"{(level * INDENT_SIZE)  * INDENT_SYMBOL}" + f"}}")
+            result.append(f"{(level * INDENT_SIZE) * INDENT_SYMBOL}}}")
         return "\n".join(result)
     elif isinstance(value, bool):
         return str(value).lower()
