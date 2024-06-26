@@ -66,10 +66,5 @@ def format(data, raw=False):
 
     result = _iter_format(data)
 
-    if raw:
-        return result
-
-    result_str = ""
-    for el in result:
-        result_str += f"{el}\n" if el else ""
-    return result_str.rstrip()
+    result_str = "\n".join(result)
+    return result if raw else result_str.strip()
