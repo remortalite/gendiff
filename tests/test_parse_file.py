@@ -14,5 +14,8 @@ def test_parse_file():
     filepath_yaml = "tests/fixtures/file1_plain.yaml"
     assert get_content(filepath_yaml) == expected
 
-    with pytest.raises(ValueError):
+    with pytest.raises(FileNotFoundError):
         get_content("java.txt")
+
+    with pytest.raises(ValueError):
+        get_content("tests/fixtures/file1_2_nested_plain.txt")
