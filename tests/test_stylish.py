@@ -25,7 +25,7 @@ def file1_2_nested_str():
     return data
 
 
-@pytest.mark.parametrize("test_input,expected", [({"name": "value"}, "{\n      name: value\n    }"),
+@pytest.mark.parametrize("test_input,expected", [({"name": "value"}, "{\n  name: value\n}"),
                                                  (True, "true"),
                                                  (False, "false"),
                                                  (None, "null"),

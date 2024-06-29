@@ -4,14 +4,27 @@ SHIFT_SIZE = 2
 
 
 def prepare_value(value, *, level=1):
-    result = [""]
     if isinstance(value, dict):
+        result = [""]
 
-        nested_result = iter_(value, level + 1)
+        nested_result = []
+        # prepare dict
+        for key in value.keys():
+            indent = (level * INDENT_SIZE - SHIFT_SIZE) * INDENT_SYMBOL
+            new_value = prepare_value(value[key], level=level + 1)
+
+            result_str = f"{indent}{key}: {new_value}"
+            nested_result.append(result_str)
+
         if nested_result:
+            closing_bracket_str = f"{indent[:-SHIFT_SIZE]}}}"
+
             result[-1] += "{"
+            print(f"{nested_result=}")
+            print(f"{level=}")
             result.extend(nested_result)
-            result.append(f"{(level * INDENT_SIZE) * INDENT_SYMBOL}}}")
+            result.append(f"{closing_bracket_str}")
+
         return "\n".join(result)
     elif isinstance(value, bool):
         return str(value).lower()
@@ -20,27 +33,7 @@ def prepare_value(value, *, level=1):
     return value
 
 
-def iter_(current_data, level=1):
-    indent_size_counted = level * INDENT_SIZE - SHIFT_SIZE
-
-    if not isinstance(current_data, dict):
-        return current_data
-
-    # final list with lines of changes
-    result = []
-
-    # prepare dict
-    for key in current_data.keys():
-        indent = indent_size_counted * INDENT_SYMBOL
-        key = key
-        value = prepare_value(current_data[key], level=level)
-
-        result_str = f"{indent}{key}: {value}"
-        result.append(result_str)
-
-    return result
-
-
 def format(data):
-    result = iter_(data)
+    result = prepare_value(data)
+    return result
     return "{\n" + "\n".join(result) + "\n}" if result else ""
