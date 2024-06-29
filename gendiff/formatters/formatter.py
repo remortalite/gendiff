@@ -5,14 +5,12 @@ from .utils.make_json_diff import make_json_diff
 
 
 def format_data(data, output_type="json", formatter=None):
-    if not formatter:
-        match output_type:
-            case "json":
-                formatter = json_formatter
-            case "plain":
-                formatter = plain_formatter
-            case _:
-                formatter = stylish_formatter
-    if output_type == "plain":
+    if formatter:
         return formatter(data)
-    return formatter(make_json_diff(data))
+    match output_type:
+        case "json":
+            return json_formatter(make_json_diff(data))
+        case "plain":
+            return plain_formatter(data)
+        case _:
+            return stylish_formatter(make_json_diff(data))
