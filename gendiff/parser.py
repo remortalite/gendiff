@@ -13,9 +13,10 @@ def parse(data, format="json"):
 
 def get_content(filename):
 
-    ext = os.path.splitext(filename)[-1][1:]
-
     with open(filename) as f:
-        data = parse(f.read(), ext)
+
+        _, ext = os.path.splitext(filename)
+
+        data = parse(f.read(), ext[1:])
 
     return data
