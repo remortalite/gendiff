@@ -1,5 +1,3 @@
-from . import stylish
-
 import json
 
 
