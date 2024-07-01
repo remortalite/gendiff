@@ -32,7 +32,7 @@ gendiff -h
 Где: 
 * `filename{1,2}` -- пути до файлов
 
-* `-f`/`--format` [json/plain/stylish] -- формат вывода различий
+* `-f`, `--format` [json/plain/stylish] -- формат вывода различий
 
 # Example:
 
