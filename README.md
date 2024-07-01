@@ -36,4 +36,4 @@ gendiff -h
 
 # Example:
 
-[![asciicast](https://asciinema.org/a/VqUBwDVgdD3umGZYx0qYxiPBa.svg)](https://asciinema.org/a/VqUBwDVgdD3umGZYx0qYxiPBa)
+[![asciicast](https://asciinema.org/a/nUm0QAamnNyrRkQCMJHwqLVVO.svg)](https://asciinema.org/a/nUm0QAamnNyrRkQCMJHwqLVVO)
